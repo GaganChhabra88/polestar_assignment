@@ -1,7 +1,16 @@
 from django.urls import path
-from tracker.views import ship_view, position_view
+from django.conf.urls import include
+from rest_framework.routers import DefaultRouter
+from tracker.views import ShipViewSet #, position_view
+
+
+router = DefaultRouter()
+
+router.register('ships', ShipViewSet, basename='ships'),
+
 
 urlpatterns = [
-    path('/api/ships', ship_view, name='ships'),
-    path('/api/positions/<imo>', position_view, name='positions')
+    path('', include(router.urls)),
+    # router.register('ships', ShipViewSet, basename='ships')
+    # path('/api/positions/<imo>', position_view, name='positions')
 ]
